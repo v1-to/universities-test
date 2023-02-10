@@ -1,10 +1,18 @@
-const { MongoClient } = require('mongodb');
+const { MongoClient, ServerApiVersion } = require('mongodb');
+require('dotenv').config();
 
-const url = 'mongodb://localhost:27017';
-const client = new MongoClient(url);
+const uri = process.env.MONGODB_CONNECTION_URI;
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
+const db = client.db(process.env.MONGODB_DATABASE);
 
 async function run() {
-    retrieveUniversities().then((universitiesByCountry) => console.log([].concat(...universitiesByCountry)));
+    try {
+        const universities = await retrieveUniversities();
+        await saveUniversities(universities);
+        process.exit(0);
+    } catch (err) {
+        process.exit(1);
+    }
 }
 
 async function retrieveUniversities() {
@@ -18,8 +26,7 @@ async function retrieveUniversities() {
         "suriname",
         "uruguay"
     ];
-
-    return Promise.all(
+    const arraysOfUniversities = await Promise.all(
         countries.map((country) => {
             const apiUrl = `http://universities.hipolabs.com/search?country=${country}`;
             return new Promise(async (resolve) => {
@@ -29,10 +36,23 @@ async function retrieveUniversities() {
             });
         })
     );
+
+    return [].concat(...arraysOfUniversities);
 }
 
-async function saveUniversities() {
-    const database = 'universities';
+async function saveUniversities(universities) {
+    await client.connect()
+    await setupDatabase();
+    try {
+        await db.collection('universities').insertMany(universities, { ordered: false });
+    } catch(err) {}
+}
+
+async function setupDatabase() {
+    await client.connect()
+    if(!db.collection('universities'))
+        await db.createCollection('universities');
+    await db.collection('universities').createIndex({ name: 1, 'state-province': 1, country: 1 }, { unique: true });
 }
 
 run();
