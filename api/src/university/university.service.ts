@@ -8,6 +8,10 @@ export type ListUniversitiesParams = {
   page: number;
 };
 
+export type FindUniversityByIdParams = {
+  id: string;
+};
+
 @Injectable()
 export class UniversityService {
   constructor(
@@ -29,5 +33,11 @@ export class UniversityService {
         ...(page && { skip: 20 * page }),
       },
     );
+  }
+
+  async findUniversityById({
+    id,
+  }: FindUniversityByIdParams): Promise<University> {
+    return this.universityModel.findById(id);
   }
 }
