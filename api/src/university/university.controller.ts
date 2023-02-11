@@ -7,6 +7,6 @@ export class UniversityController {
 
   @Get('/')
   listUniversities() {
-    return [];
+    return this.universityService.listUniversities();
   }
 }
