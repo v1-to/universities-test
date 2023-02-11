@@ -6,7 +6,9 @@ import { UniversityModule } from './university/university.module';
 @Module({
   imports: [
     ConfigModule.forRoot(),
-    MongooseModule.forRoot(process.env.MONGODB_DATABASE_CONNECTION_URI),
+    MongooseModule.forRoot(process.env.MONGODB_CONNECTION_URI, {
+      dbName: process.env.MONGODB_DATABASE,
+    }),
     UniversityModule,
   ],
 })
