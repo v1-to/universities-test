@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   DefaultValuePipe,
+  Delete,
   Get,
   HttpStatus,
   Param,
@@ -34,7 +35,10 @@ export class UniversityController {
   findUniversityById(@Param('id') id: string, @Res() response: any) {
     this.universityService
       .findUniversityById({ id })
-      .then((res) => response.status(HttpStatus.OK).send(res))
+      .then((res) => {
+        if (!res) response.status(HttpStatus.NOT_FOUND).send();
+        else response.status(HttpStatus.OK).send(res);
+      })
       .catch((err: MongooseError) =>
         response.status(HttpStatus.BAD_REQUEST).send(err),
       );
@@ -59,6 +63,16 @@ export class UniversityController {
     this.universityService
       .updateUniversity(id, universityData)
       .then((res) => response.status(HttpStatus.OK).send(res))
+      .catch((err: MongooseError) =>
+        response.status(HttpStatus.BAD_REQUEST).send({ error: err.message }),
+      );
+  }
+
+  @Delete('/:id')
+  deleteUniversity(@Param('id') id: string, @Res() response: any) {
+    this.universityService
+      .deleteUniversity(id)
+      .then(() => response.status(HttpStatus.NO_CONTENT).send())
       .catch((err: MongooseError) =>
         response.status(HttpStatus.BAD_REQUEST).send({ error: err.message }),
       );

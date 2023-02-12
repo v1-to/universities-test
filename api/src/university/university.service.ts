@@ -63,4 +63,8 @@ export class UniversityService {
       { new: true },
     );
   }
+
+  async deleteUniversity(id: string): Promise<void> {
+    return this.universityModel.findByIdAndDelete(id);
+  }
 }
