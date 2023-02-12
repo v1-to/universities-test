@@ -40,4 +40,8 @@ export class UniversityService {
   }: FindUniversityByIdParams): Promise<University> {
     return this.universityModel.findById(id);
   }
+
+  async insertUniversity(university: University): Promise<University> {
+    return this.universityModel.create(university);
+  }
 }
