@@ -12,6 +12,10 @@ export type FindUniversityByIdParams = {
   id: string;
 };
 
+export type UpdateUniversityData = Partial<
+  Pick<University, 'web_pages' | 'name' | 'domains'>
+>;
+
 @Injectable()
 export class UniversityService {
   constructor(
@@ -43,5 +47,20 @@ export class UniversityService {
 
   async insertUniversity(university: University): Promise<University> {
     return this.universityModel.create(university);
+  }
+
+  async updateUniversity(
+    id: string,
+    { name, web_pages, domains }: UpdateUniversityData,
+  ): Promise<University> {
+    return this.universityModel.findByIdAndUpdate(
+      id,
+      {
+        ...(name && { name }),
+        ...(web_pages && { web_pages }),
+        ...(domains && { domains }),
+      },
+      { new: true },
+    );
   }
 }
