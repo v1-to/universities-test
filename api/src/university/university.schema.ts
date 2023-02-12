@@ -24,4 +24,11 @@ export class University {
   web_pages: string[];
 }
 
-export const UniversitySchema = SchemaFactory.createForClass(University);
+const UniversitySchema = SchemaFactory.createForClass(University);
+
+UniversitySchema.index(
+  { name: 1, 'state-province': 1, country: 1 },
+  { unique: true },
+);
+
+export { UniversitySchema };
