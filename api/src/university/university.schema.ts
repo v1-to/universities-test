@@ -8,7 +8,17 @@ export class University {
   @Prop({ type: String, required: true })
   name: string;
 
-  @Prop({ type: String, required: true })
+  @Prop({
+    type: String,
+    required: true,
+    validate: {
+      validator: (v) => {
+        if (v.length != 2) throw new Error();
+      },
+      message: 'Invalid Alpha Two Code value',
+    },
+    set: (v) => String(v).toUpperCase(),
+  })
   alpha_two_code: string;
 
   @Prop({ type: String, required: true })
