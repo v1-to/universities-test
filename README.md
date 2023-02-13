@@ -3,20 +3,22 @@
 ATENÇÃO:
 
 - As variáveis de ambiente com as conexões de banco deverão estar contidas num .env 
+- É necessário ter o node instalado na máquina (recomenda-se o node 18)
 
 ##### COMO RODAR?
-
+`npm install`
 `npm run start`
 
 # API
 
 A API foi implementada utilizando o framework NestJS aliado ao ODM Mongoose
 O processo de rodar a API está dockerizado
+A aplicação é executada na porta 3000
 
 ATENÇÃO:
 
 - As variáveis de ambiente com as conexões de banco deverão estar contidas num .env 
-- É necessário o docker instalado na máquina
+- É necessário ter o docker e o docker-compose instalado na máquina
 
 ##### COMO RODAR?
 
