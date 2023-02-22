@@ -4,7 +4,13 @@ import { HydratedDocument } from 'mongoose';
 
 export type UniversityDocument = HydratedDocument<University>;
 
-@Schema({ id: false })
+@Schema({
+  id: false,
+  timestamps: {
+    createdAt: 'created_at',
+    updatedAt: 'updated_at',
+  },
+})
 export class University extends BaseSchema {
   @Prop({ type: String, required: true })
   name: string;
@@ -39,7 +45,7 @@ const UniversitySchema = SchemaFactory.createForClass(University);
 
 UniversitySchema.index(
   { name: 1, 'state-province': 1, country: 1 },
-  { unique: true },
+  { unique: true, background: false },
 );
 
 export { UniversitySchema };

@@ -9,7 +9,7 @@ export abstract class BaseService<T> {
   readonly fieldsShownInResourceListing: string[] = [];
   abstract readonly updatableFields: string[];
 
-  constructor(private readonly resourceModel: Model<T>) {}
+  constructor(public readonly resourceModel: Model<T>) {}
 
   async listResource({ page, ...filters }: ListParams): Promise<T[]> {
     return this.resourceModel.find(
