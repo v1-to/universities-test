@@ -19,10 +19,10 @@
     "noFallthroughCasesInSwitch": false,
     "paths": {
       "@base/*": [
-        "./src/base/*"
+        "./src/modules/base/*"
       ],
       "@university/*": [
-        "./src/university/*"
+        "src/modules/university/*"
       ]
     }
   }
