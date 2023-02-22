@@ -11,7 +11,7 @@ export class ThirdPartyImportService {
 
   @Cron(CronExpression.EVERY_DAY_AT_MIDNIGHT)
   async importUniversities() {
-    this.logger.log('- RUNNING IMPORT UNIVERSITIES -');
+    this.logger.log('Running Import Universities Routine');
     try {
       const universities = await this.retrieveUniversities();
       await this.saveUniversities(universities);
@@ -35,9 +35,14 @@ export class ThirdPartyImportService {
       countries.map((country) => {
         const apiUrl = `http://universities.hipolabs.com/search?country=${country}`;
         return new Promise<University[]>(async (resolve) => {
-          const response = await fetch(apiUrl);
-          const data = await response.json();
-          resolve(data);
+          try {
+            const response = await fetch(apiUrl);
+            const data = await response.json();
+            resolve(data);
+          } catch (err) {
+            this.logger.error(err);
+            resolve([]);
+          }
         });
       }),
     );
@@ -47,7 +52,6 @@ export class ThirdPartyImportService {
 
   private async saveUniversities(universities: University[]): Promise<void> {
     universities.forEach((university) => {
-      this.logger.log(university.name);
       this.universityService.resourceModel
         .updateOne(
           {
@@ -63,11 +67,18 @@ export class ThirdPartyImportService {
         .then(({ upsertedId }) => {
           if (upsertedId)
             this.logger.log(
-              `SUCCESSFULLY UPSERTED [${upsertedId} - ${university.name}]`,
+              `Successfully Imported ${university.name}/${university.country}`,
+            );
+          else
+            this.logger.log(
+              `Successfully Updated ${university.name}/${university.country}`,
             );
         })
         .catch((error) => {
-          this.logger.error(error);
+          this.logger.error(
+            `Import Failed at ${university.name}/${university.country}`,
+            error,
+          );
         });
     });
   }
