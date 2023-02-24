@@ -12,7 +12,7 @@ import { User } from '@user/user.schema';
 import { UserService } from '@user/user.service';
 import { MongooseError, ObjectId } from 'mongoose';
 
-@Controller('user')
+@Controller('users')
 export class UserController {
   constructor(readonly userService: UserService) {}
 
