@@ -17,4 +17,11 @@ export class UserService {
   async findResourceByLogin({ login }: Pick<User, 'login'>): Promise<User> {
     return this.userModel.findOne({ login });
   }
+
+  async changePassword({
+    _id,
+    password,
+  }: Pick<User, '_id' | 'password'>): Promise<void> {
+    await this.userModel.findByIdAndUpdate(_id, { $set: { password } });
+  }
 }
