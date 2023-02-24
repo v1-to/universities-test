@@ -23,12 +23,13 @@ export class User extends BaseSchema {
     type: String,
     required: true,
     validate: {
-      validator: (v) => {
-        if (v.length < 6) throw new Error();
-      },
+      validator: (v) => v.length >= 6,
       message: 'Password too short',
     },
-    set: (v) => bcrypt.hashSync(v, +process.env.BCRYPT_ROUNDS),
+    set: (v) => {
+      if (v.length < 6) return v;
+      return bcrypt.hashSync(v, +process.env.BCRYPT_ROUNDS);
+    },
   })
   password: string;
 }
