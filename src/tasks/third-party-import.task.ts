@@ -9,7 +9,7 @@ export class ThirdPartyImportService {
 
   constructor(private universityService: UniversityService) {}
 
-  @Cron(CronExpression.EVERY_MINUTE)
+  @Cron(CronExpression.EVERY_DAY_AT_MIDNIGHT)
   async importUniversities() {
     this.logger.log('Running Import Universities Routine');
     try {
