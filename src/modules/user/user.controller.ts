@@ -1,3 +1,4 @@
+import { Public } from '@auth/jwt.guard';
 import { Body, Controller, HttpStatus, Post, Res } from '@nestjs/common';
 import { User } from '@user/user.schema';
 import { UserService } from '@user/user.service';
@@ -7,6 +8,7 @@ import { MongooseError } from 'mongoose';
 export class UserController {
   constructor(readonly userService: UserService) {}
 
+  @Public()
   @Post('/')
   insertResource(@Body() resource: User, @Res() response: any) {
     this.userService
