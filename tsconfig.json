@@ -24,6 +24,9 @@
       "@university/*": [
         "src/modules/university/*"
       ],
+      "@user/*": [
+        "src/modules/user/*"
+      ],
       "@tasks/*": [
         "src/tasks/*"
       ]

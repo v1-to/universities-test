@@ -1,6 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { Cron, CronExpression } from '@nestjs/schedule';
-import { University, UniversityDocument } from '@university/university.schema';
+import { University } from '@university/university.schema';
 import { UniversityService } from '@university/university.service';
 
 @Injectable()
@@ -9,7 +9,7 @@ export class ThirdPartyImportService {
 
   constructor(private universityService: UniversityService) {}
 
-  @Cron(CronExpression.EVERY_DAY_AT_MIDNIGHT)
+  @Cron(CronExpression.EVERY_MINUTE)
   async importUniversities() {
     this.logger.log('Running Import Universities Routine');
     try {
