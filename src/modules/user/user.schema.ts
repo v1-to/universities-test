@@ -1,6 +1,7 @@
 import { BaseSchema } from '@base/base.schema';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
+import * as bcrypt from 'bcrypt';
 
 export type UserDocument = HydratedDocument<User>;
 
@@ -27,6 +28,7 @@ export class User extends BaseSchema {
       },
       message: 'Password too short',
     },
+    set: (v) => bcrypt.hashSync(v, +process.env.BCRYPT_ROUNDS),
   })
   password: string;
 }
