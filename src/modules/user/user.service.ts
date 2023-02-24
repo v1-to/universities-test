@@ -13,4 +13,8 @@ export class UserService {
   async insertResource(resource: User): Promise<User> {
     return this.userModel.create(resource);
   }
+
+  async findResourceByLogin({ login }: Pick<User, 'login'>): Promise<User> {
+    return this.userModel.findOne({ login });
+  }
 }

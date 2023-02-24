@@ -5,6 +5,7 @@ import { ScheduleModule } from '@nestjs/schedule';
 import { UniversityModule } from '@university/university.module';
 import { TasksModule } from '@tasks/tasks.module';
 import { UserModule } from './modules/user/user.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { UserModule } from './modules/user/user.module';
     MongooseModule.forRoot(process.env.MONGODB_CONNECTION_URI, {
       dbName: process.env.MONGODB_DATABASE,
     }),
+    AuthModule,
     UniversityModule,
     TasksModule,
     UserModule,
