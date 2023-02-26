@@ -10,8 +10,11 @@ export class UserService {
     private userModel: Model<UserDocument>,
   ) {}
 
-  async insertResource(resource: User): Promise<User> {
-    return this.userModel.create(resource);
+  async insertResource(resource: User): Promise<Omit<User, 'password'>> {
+    const { password, ...user } = (
+      await this.userModel.create(resource)
+    ).toObject();
+    return user;
   }
 
   async findResourceByLogin({ login }: Pick<User, 'login'>): Promise<User> {
