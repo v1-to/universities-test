@@ -7,7 +7,6 @@ import { Model } from 'mongoose';
 @Injectable()
 export class UniversityService extends BaseService<University> {
   fieldsShownInResourceListing = ['name', 'country', 'state-province'];
-  updatableFields = ['name', 'web_pages', 'domains'];
 
   constructor(
     @InjectModel(University.name)

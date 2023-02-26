@@ -37,6 +37,7 @@ export class University extends BaseSchema {
       },
       message: 'Invalid Alpha Two Code value',
     },
+    immutable: true,
     set: (v) => String(v).toUpperCase(),
   })
   alpha_two_code: string;
@@ -47,7 +48,7 @@ export class University extends BaseSchema {
     required: true,
     description: 'The country where the university is located',
   })
-  @Prop({ type: String, required: true })
+  @Prop({ type: String, required: true, immutable: true })
   country: string;
 
   @ApiProperty({
@@ -66,7 +67,7 @@ export class University extends BaseSchema {
     required: false,
     description: 'The state-province where the university is located',
   })
-  @Prop({ type: String })
+  @Prop({ type: String, immutable: true })
   'state-province'?: string;
 
   @ApiProperty({

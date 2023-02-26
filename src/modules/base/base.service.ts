@@ -7,7 +7,6 @@ export type ListParams = {
 
 export abstract class BaseService<T> {
   readonly fieldsShownInResourceListing: string[] = [];
-  abstract readonly updatableFields: string[];
 
   constructor(public readonly resourceModel: Model<T>) {}
 
@@ -31,10 +30,6 @@ export abstract class BaseService<T> {
   }
 
   async updateResource(id: string, resource: Partial<T>): Promise<T> {
-    Object.keys(resource).forEach((key) => {
-      if (!this.updatableFields.includes(key)) delete resource[key];
-    });
-
     return this.resourceModel.findByIdAndUpdate(id, resource, { new: true });
   }
 
