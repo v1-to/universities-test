@@ -1,9 +1,9 @@
 # API
 
-A API foi implementada utilizando o framework NestJS aliado ao ODM Mongoose
-O processo de rodar a API está dockerizado
-Nesse momento a api está hospedada sob o host público de IP: "18.230.21.123" e Porta: "3000"
-Swagger acessível em "18.230.21.123:3000/api"
+- A API foi implementada utilizando o framework NestJS aliado ao ODM Mongoose
+- O processo de rodar a API está dockerizado
+- Nesse momento a api está hospedada sob o host público de IP: "18.230.21.123" e Porta: "3000"
+- Swagger acessível em "18.230.21.123:3000/api"
 
 ATENÇÃO:
 
