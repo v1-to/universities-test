@@ -2,6 +2,7 @@ import { BaseSchema } from '@base/base.schema';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
 import * as bcrypt from 'bcrypt';
+import { ApiProperty } from '@nestjs/swagger';
 
 export type UserDocument = HydratedDocument<User>;
 
@@ -13,12 +14,30 @@ export type UserDocument = HydratedDocument<User>;
   },
 })
 export class User extends BaseSchema {
+  @ApiProperty({
+    name: 'name',
+    type: String,
+    required: true,
+    description: 'The name of the user',
+  })
   @Prop({ type: String, required: true })
   name: string;
 
+  @ApiProperty({
+    name: 'login',
+    type: String,
+    required: true,
+    description: 'The login of the user',
+  })
   @Prop({ type: String, required: true })
   login: string;
 
+  @ApiProperty({
+    name: 'password',
+    type: String,
+    required: true,
+    description: 'The hashed password of the user',
+  })
   @Prop({
     type: String,
     required: true,
