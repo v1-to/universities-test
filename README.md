@@ -21,7 +21,7 @@ ATENÇÃO:
 - Como nada foi citado no enunciado, implementei a aplicação esperando um DBMS externo (e não que precisaria de um container MongoDB)
 - Os nomes de alguns países estavam errados (brasil/paraguai ao invés de brazil/paraguay), fiz a correção acreditando que o esperado seria trazer também os dados desses países
 - O esquema de autenticação é o JWT Bearer Token
-- Rotas de criação de usuário, login e troca de senha são públicos
+- Rotas de criação de usuário e login são públicos
 - O módulo de University (e futuros outros módulos) foi modelado se baseando/herdando de um Base CRUD com operações abstratas, muito útil para escalar de forma rápida com a adição de novos schemas
 - A importação periódica de universidades se tornou uma task agendada para ser executada meia-noite de todos os dias
 - A inserção/atualização de universidades é feita usando operação de update com upsert
