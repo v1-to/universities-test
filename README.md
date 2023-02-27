@@ -25,3 +25,4 @@ ATENÇÃO:
 - O módulo de University (e futuros outros módulos) foi modelado se baseando/herdando de um Base CRUD com operações abstratas, muito útil para escalar de forma rápida com a adição de novos schemas
 - A importação periódica de universidades se tornou uma task agendada para ser executada meia-noite de todos os dias
 - A inserção/atualização de universidades é feita usando operação de update com upsert
+- Implementei uma troca de senha bem simples já que não tinha idéia se deveria ser uma troca com fluxo completo (com token recebido via email)
