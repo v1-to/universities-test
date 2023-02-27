@@ -39,18 +39,18 @@ export class UserController {
       );
   }
 
-  @Public()
   @ApiNoContentResponse({ description: 'If the password was updated' })
   @ApiBadRequestResponse({ description: 'If some error with update occurs' })
   @ApiParam({ name: 'id', description: 'The id of the resource' })
   @Put('/:id/change-password')
   changePassword(
     @Param('id') _id: ObjectId,
-    @Body() { password }: Pick<User, 'password'>,
+    @Body()
+    { password, oldPassword }: Pick<User, 'password'> & { oldPassword: string },
     @Res() response: any,
   ) {
     this.userService
-      .changePassword({ _id, password })
+      .changePassword({ _id, password, oldPassword })
       .then(() => response.status(HttpStatus.NO_CONTENT).send())
       .catch((err: MongooseError) =>
         response.status(HttpStatus.BAD_REQUEST).send({ error: err.message }),
