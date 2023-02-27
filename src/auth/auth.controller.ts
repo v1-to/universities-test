@@ -35,7 +35,7 @@ export class AuthController {
       .login({ login, password })
       .then((res) => response.status(HttpStatus.OK).send(res))
       .catch((err: MongooseError) =>
-        response.status(HttpStatus.UNAUTHORIZED).send({ error: err.message }),
+        response.status(HttpStatus.UNAUTHORIZED).send({ message: err.message }),
       );
   }
 }

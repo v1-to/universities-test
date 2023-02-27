@@ -35,7 +35,7 @@ export class UserController {
       .insertResource(resource)
       .then((res) => response.status(HttpStatus.CREATED).send(res))
       .catch((err: MongooseError) =>
-        response.status(HttpStatus.BAD_REQUEST).send({ error: err.message }),
+        response.status(HttpStatus.BAD_REQUEST).send({ message: err.message }),
       );
   }
 
@@ -53,7 +53,7 @@ export class UserController {
       .changePassword({ _id, password, oldPassword })
       .then(() => response.status(HttpStatus.NO_CONTENT).send())
       .catch((err: MongooseError) =>
-        response.status(HttpStatus.BAD_REQUEST).send({ error: err.message }),
+        response.status(HttpStatus.BAD_REQUEST).send({ message: err.message }),
       );
   }
 }

@@ -83,7 +83,7 @@ export abstract class BaseController<T> {
       .insertResource(resource)
       .then((res) => response.status(HttpStatus.CREATED).send(res))
       .catch((err: MongooseError) =>
-        response.status(HttpStatus.BAD_REQUEST).send({ error: err.message }),
+        response.status(HttpStatus.BAD_REQUEST).send({ message: err.message }),
       );
   }
 
@@ -105,7 +105,7 @@ export abstract class BaseController<T> {
       .updateResource(id, resource)
       .then((res) => response.status(HttpStatus.OK).send(res))
       .catch((err: MongooseError) =>
-        response.status(HttpStatus.BAD_REQUEST).send({ error: err.message }),
+        response.status(HttpStatus.BAD_REQUEST).send({ message: err.message }),
       );
   }
 
@@ -118,7 +118,7 @@ export abstract class BaseController<T> {
       .deleteResource(id)
       .then(() => response.status(HttpStatus.NO_CONTENT).send())
       .catch((err: MongooseError) =>
-        response.status(HttpStatus.BAD_REQUEST).send({ error: err.message }),
+        response.status(HttpStatus.BAD_REQUEST).send({ message: err.message }),
       );
   }
 }
