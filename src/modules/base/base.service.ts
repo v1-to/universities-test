@@ -30,7 +30,10 @@ export abstract class BaseService<T> {
   }
 
   async updateResource(id: string, resource: Partial<T>): Promise<T> {
-    return this.resourceModel.findByIdAndUpdate(id, resource, { new: true });
+    return this.resourceModel.findByIdAndUpdate(id, resource, {
+      new: true,
+      runValidators: true,
+    });
   }
 
   async deleteResource(id: string): Promise<void> {
