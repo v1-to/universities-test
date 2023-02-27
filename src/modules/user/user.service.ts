@@ -18,7 +18,7 @@ export class UserService {
   }
 
   async findResourceByLogin({ login }: Pick<User, 'login'>): Promise<User> {
-    return this.userModel.findOne({ login });
+    return (await this.userModel.findOne({ login })).toObject();
   }
 
   async changePassword({

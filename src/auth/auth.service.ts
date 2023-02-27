@@ -27,6 +27,7 @@ export class AuthService {
     const user = await this.validateUser(login, password);
     if (!user) throw new UnauthorizedException('Login failed');
     const payload = { login: user.login, userId: user._id };
-    return { access_token: this.jwtService.sign(payload) };
+    const { _id, name } = user;
+    return { _id, name, access_token: this.jwtService.sign(payload) };
   }
 }
